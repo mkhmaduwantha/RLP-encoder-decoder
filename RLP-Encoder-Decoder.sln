@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLPLibrary", "RLPLibrary\RLPLibrary.csproj", "{A3DE451D-CBF8-4039-B10A-F7FF35A5CD86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLPConsoleApplication", "RLPConsoleApplication\RLPConsoleApplication.csproj", "{00B34BA1-C95D-414E-AEFD-B948534A5EA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLPLibraryTest", "RLPLibraryTest\RLPLibraryTest.csproj", "{AC921D1F-5F52-4CEA-AC24-587A80D3CA33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3DE451D-CBF8-4039-B10A-F7FF35A5CD86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DE451D-CBF8-4039-B10A-F7FF35A5CD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3DE451D-CBF8-4039-B10A-F7FF35A5CD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DE451D-CBF8-4039-B10A-F7FF35A5CD86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B34BA1-C95D-414E-AEFD-B948534A5EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B34BA1-C95D-414E-AEFD-B948534A5EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B34BA1-C95D-414E-AEFD-B948534A5EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B34BA1-C95D-414E-AEFD-B948534A5EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC921D1F-5F52-4CEA-AC24-587A80D3CA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC921D1F-5F52-4CEA-AC24-587A80D3CA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC921D1F-5F52-4CEA-AC24-587A80D3CA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC921D1F-5F52-4CEA-AC24-587A80D3CA33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

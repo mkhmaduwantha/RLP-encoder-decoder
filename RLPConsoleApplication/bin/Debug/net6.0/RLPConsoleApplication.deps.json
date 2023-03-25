@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RLPConsoleApplication/1.0.0": {
+        "dependencies": {
+          "RLPLibrary": "1.0.0"
+        },
+        "runtime": {
+          "RLPConsoleApplication.dll": {}
+        }
+      },
+      "RLPLibrary/1.0.0": {
+        "runtime": {
+          "RLPLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RLPConsoleApplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RLPLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

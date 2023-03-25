@@ -1,0 +1,12 @@
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/bin/Debug/net6.0/RLPLibrary.deps.json
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/bin/Debug/net6.0/RLPLibrary.dll
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/bin/Debug/net6.0/RLPLibrary.pdb
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.csproj.AssemblyReference.cache
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.AssemblyInfoInputs.cache
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.AssemblyInfo.cs
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.csproj.CoreCompileInputs.cache
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.dll
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/refint/RLPLibrary.dll
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/RLPLibrary.pdb
+/home/hashan/Documents/mine/RLP-Encoder-Decoder/RLPLibrary/obj/Debug/net6.0/ref/RLPLibrary.dll
