@@ -28,13 +28,23 @@ Console.WriteLine("==================");
 Console.WriteLine(60/256);
 Console.WriteLine(60 % 256);
 
+Console.WriteLine("ToBINARY==================");
+RLPEncoder encoder1 = new RLPEncoder();
+var data1 = encoder1.ToBinary1(257);
+foreach(byte b in data1)
+{
+    Console.WriteLine(b);
+}
+
+
 Console.WriteLine("==================");
 double a = 60;
 
 Console.WriteLine((long)a/256);
 Console.WriteLine(a % 256);
-Console.WriteLine("==================");
-var data = System.Text.Encoding.UTF8.GetBytes("");
+Console.WriteLine("Text==================");
+var data = System.Text.Encoding.UTF8.GetBytes("60").Reverse().ToArray();
+Console.WriteLine(BitConverter.ToInt64(data,0));
 foreach(byte b in data)
 {
     Console.WriteLine(b);
