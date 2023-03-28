@@ -1,12 +1,12 @@
 # README #
 
-This README documents the necessary steps and prject structure of the application.
+This README documents the necessary information about this application.
 
-### What is this Prroject is about? ###
+### What is this Project? ###
 
 * Project Description
   * Recursive-length prefix (RLP) serialization is the primary encoding method used to serialize objects in Ethereum's execution layer.
-    * This project includes the implementation of both the RLP encoding and decoding algorithms
+    * This project includes the implementation of both the RLP encoding and decoding algorithms.
     * The current implementation has been made for RLP encoding to support ```byte[], string, int, List``` data types.
     * The current implementation has been made for RLP decoding to decode the encoded byte arrays of ```byte[], string, List``` data types.
 * Versions
@@ -30,7 +30,7 @@ This README documents the necessary steps and prject structure of the applicatio
 * To run the application run the following command from the root folder.
     * ```dotnet run --project RLPConsoleApplication/RLPConsoleApplication.csproj```
 * Dependencies
-  * We used the ```MSTest``` framework to write unit tests.
+  * Used the ```MSTest``` framework to write unit tests.
 
 ### Who do I talk to? ###
 
@@ -39,6 +39,6 @@ This README documents the necessary steps and prject structure of the applicatio
 
 ### Additional things to know !!! ###
 
-```While the algorithm is effective for encoding and decoding data, it is important to note that this implementation may not be the most optimal or memory-efficient solution. Also there are some use cases that I could not properly test about. As a beginner in C#, I acknowledge that there is room for improvement in the code, and I am committed to exploring more efficient ways to implement the RLP algorithm in the future.```
+While the algorithm is effective for encoding and decoding data, it is important to note that this implementation may not be the most optimal or memory-efficient solution. Also there are some use cases that I could not properly test about. As a beginner in C#, I acknowledge that there is room for improvement in the code, and I am committed to exploring more efficient ways to implement the RLP algorithm in the future.
 
-```Thank you for taking the time to review this project, and I welcome any feedback or suggestions for improvement.```
+***Thank you for taking the time to review this project, and I welcome any feedback or suggestions for improvement.***
