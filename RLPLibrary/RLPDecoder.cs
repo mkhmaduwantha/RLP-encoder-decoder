@@ -1,14 +1,17 @@
-using System.Data;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace RLPLibrary;
 
+/// <summary>
+/// Class to handle RLP decoding
+/// </summary>
 public class RLPDecoder
 {
-    public Object Decode(byte[] input)
+    /// <summary>
+    /// Method to RLP decode, given an array of bytes for RLP encoded object
+    /// </summary>
+    /// <param name="input">Array of bytes for RLP encoded object</param>
+    /// <returns>Decoded object</returns>
+    /// <exception cref="Exception"></exception>
+    public Object? Decode(byte[] input)
     {
         if (input == null || input.Length == 0)
         {
@@ -16,94 +19,77 @@ public class RLPDecoder
         }
 
         byte firstByte = input[0];
+
         if (firstByte <= 0x7f)
         {
-            string utfString = System.Text.Encoding.UTF8.GetString(new byte[] { firstByte });
-            // Console.WriteLine(utfString);
-            return utfString;
+            return System.Text.Encoding.UTF8.GetString(new byte[] { firstByte });
         }
 
         if (firstByte <= 0xb7)
         {
             int length = firstByte - 0x80;
             byte[] byteArray = input.Skip(1).Take(length).ToArray();
-
-            string utfString = System.Text.Encoding.UTF8.GetString(byteArray);
-            // Console.WriteLine(utfString);
-            // Console.WriteLine(BitConverter.ToString(byteArray));
-            return utfString;
+            return System.Text.Encoding.UTF8.GetString(byteArray);
         }
 
         if (firstByte <= 0xbf)
         {
             int lengthLength = firstByte - 0xb7;
-            long length = DecodeLength1(input.Skip(1).Take(lengthLength).ToArray());
-            //following explicit cast- length can be higher than int value
+            long length = DecodeLength(input.Skip(1).Take(lengthLength).ToArray());
             byte[] byteArray = input.Skip(1 + lengthLength).Take((int)length).ToArray();
-            string utfString = System.Text.Encoding.UTF8.GetString(byteArray);
-            // Console.WriteLine(utfString);
-            return utfString;
+            return System.Text.Encoding.UTF8.GetString(byteArray);
         }
 
         if (firstByte <= 0xf7)
         {
             int length = firstByte - 0xc0;
             List<object> items = new List<object>();
-            int offset = 1;
-            while (offset < input.Length)
-            {
-                var (itemLength, lenOfLen) = GetItemOffset(input.Skip(offset).ToArray());
-                int itemLengthWithPrefix = itemLength + offset + lenOfLen;
-                items.Add(Decode(input.Skip(offset).Take(itemLengthWithPrefix).ToArray()));
-                offset = itemLengthWithPrefix + 1;
-                // byte[] itemData = input.Skip(offset).Take(length).ToArray();
-                // object item = Decode(itemData);
-            }
-            return items;
-            // return System.Text.Encoding.UTF8.GetString(input.Skip(1).Take(length).ToArray()).ToList();
+            int startPointer = 1;
+            return EncodeListElements(startPointer, input);
         }
+
         if (firstByte <= 0xff)
         {
             int lengthLength = firstByte - 0xf7;
-            long length = DecodeLength1(input.Skip(1).Take(lengthLength).ToArray());
-            var items = new List<object>();
-            int pos = 1 + lengthLength;
-            while (pos < input.Length)
-            {
-                var (itemLength, lenOfLen) = GetItemOffset(input.Skip(pos).ToArray());
-                // int itemLengthWithPrefix = itemLength + pos + lenLength;
-                int itemLengthWithPrefix = itemLength + pos + lenOfLen;
-                items.Add(Decode(input.Skip(pos).Take(itemLengthWithPrefix).ToArray()));
-                //pos = itemLengthWithPrefix;
-                pos = itemLengthWithPrefix + 1;
-            }
-            return items;
+            long length = DecodeLength(input.Skip(1).Take(lengthLength).ToArray());
+            int startPointer = 1 + lengthLength;
+            return EncodeListElements(startPointer, input);
         }
 
-        throw new Exception("Invalid Enocde");
+        throw new Exception("The given input is too long or invalid, hence can not decode.");
     }
 
-    // private static long DecodeLength(byte[] lengthBytes)
-    // {
-    //     if (lengthBytes.Length == 0)
-    //     {
-    //         return 0;
-    //     }
+    /// <summary>
+    /// Method outputs a Decoded List given a encoded byte array of a list elements
+    /// </summary>
+    /// <param name="startPointer"></param>
+    /// <param name="input">Byte array of a list elments</param>
+    /// <returns>Decoded list of objects</returns>
+    private List<object> EncodeListElements(int startPointer, byte[] input)
+    {
+        var items = new List<object>();
+        while (startPointer < input.Length)
+        {
+            var (itemLength, lenOfLen) = GetItemLengthAndLengthOfLength(input.Skip(startPointer).ToArray());
+            int endPointer = itemLength + startPointer + lenOfLen;
+            items.Add(Decode(input.Skip(startPointer).Take(endPointer).ToArray()));
+            startPointer = endPointer + 1;
+        }
+        return items;
+    }
 
-    //     if (lengthBytes[0] < 0x80)
-    //     {
-    //         return lengthBytes[0];
-    //     }
 
-    //     int lengthLength = lengthBytes[0] - 0x80;
-    //     return BitConverter.ToInt64(lengthBytes.Skip(1).Take(lengthLength).Reverse().Concat(new byte[] { 0 }).ToArray(), 0);
-    // }
-
-    private static int DecodeLength1(byte[] bytes)
+    /// <summary>
+    /// Method outputs a integer value of the length given the byte array of binary form of the length
+    /// </summary>
+    /// <param name="bytes">binary representation of a the length value</param>
+    /// <returns>integer value of the length</returns>
+    /// <exception cref="ArgumentException">throws ArgumentException</exception>
+    private int DecodeLength(byte[] bytes)
     {
         if (bytes.Length == 0)
         {
-            throw new ArgumentException("Invalid RLP encoding: length prefix missing");
+            throw new ArgumentException("Invalid binary representation of length value.");
         }
 
         int x = 0;
@@ -114,44 +100,52 @@ public class RLPDecoder
         return x;
     }
 
-    public static (int,int) GetItemOffset(byte[] input)
+    /// <summary>
+    /// Method outputs the length and the length of the length bytes for a given encoded input byte array
+    /// </summary>
+    /// <param name="input">Encoded byte array</param>
+    /// <returns>length and length of length</returns>
+    /// <exception cref="Exception"></exception>
+    public (int, int) GetItemLengthAndLengthOfLength(byte[] input)
     {
-        int length = input.Length;
-        if (length == 0)
+        if (input.Length == 0)
         {
-            throw new Exception("Input is null");
+            throw new Exception("The given input is null.");
         }
 
         byte prefix = input[0];
+
         if (prefix <= 0x7f)
         {
-            return (1,0);
+            return (1, 0);
         }
-        else if (prefix <= 0xb7)
+        
+        if (prefix <= 0xb7)
         {
             int strLen = prefix - 0x80;
-            return (strLen,0);
+            return (strLen, 0);
         }
-        else if (prefix <= 0xbf)
+        
+        if (prefix <= 0xbf)
         {
             int lenOfStrLen = prefix - 0xb7;
-            int strLen = (int)DecodeLength1(input.Skip(1).Take(lenOfStrLen).ToArray());
-            return (strLen,lenOfStrLen);
+            int strLen = (int)DecodeLength(input.Skip(1).Take(lenOfStrLen).ToArray());
+            return (strLen, lenOfStrLen);
         }
-        else if (prefix <= 0xf7)
+        
+        if (prefix <= 0xf7)
         {
             int listLen = prefix - 0xc0;
-            return (listLen,0);
+            return (listLen, 0);
         }
-        else if (prefix <= 0xff)
+        
+        if (prefix <= 0xff)
         {
             int lenOfListLen = prefix - 0xf7;
-            int listLen = (int)DecodeLength1(input.Skip(1).Take(lenOfListLen).ToArray());
-            return (listLen,lenOfListLen);
+            int listLen = (int)DecodeLength(input.Skip(1).Take(lenOfListLen).ToArray());
+            return (listLen, lenOfListLen);
         }
-        else
-        {
-            throw new Exception("Input does not conform to RLP encoding form");
-        }
+        
+        throw new Exception("The given input is either too long or invalid.");
     }
 }
